@@ -42,7 +42,7 @@ module.exports = function(grunt) {
             },
             tests: {
                 files: ['*.js', 'test/**/*.js', '{demo,css,images}/*.*'],
-                tasks: ['karma:dev:run']
+                tasks: [/*'karma:dev:run'*/]
             }
         },
         release: {
