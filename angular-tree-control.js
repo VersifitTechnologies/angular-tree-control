@@ -182,7 +182,7 @@
                         if ($scope.onDblClick)
                             $scope.onDblClick({node: selectedNode});
                     };
-                    
+
                     $scope.selectedIndex = function() {
                         return $scope.visibleNodes.indexOf($scope.selectedNode);
                     };
