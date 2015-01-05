@@ -139,7 +139,6 @@
                     };
 
                     $scope.selectNodeHead = function() {
-                        console.log('called', this, $scope.expandedNodesMap);
                         var expanding = $scope.expandedNodesMap[this.$id] === undefined;
                         $scope.expandedNodesMap[this.$id] = (expanding ? this.node : undefined);
                         if (expanding) {
@@ -178,9 +177,20 @@
                     };
 
                     $scope.doubleClick = function(selectedNode) {
-                        $scope.selectedNode = selectedNode;
-                        if ($scope.onDblClick)
-                            $scope.onDblClick({node: selectedNode});
+                        if (selectedNode[$scope.options.nodeChildren] && selectedNode[$scope.options.nodeChildren].length > 0 &&
+                            !$scope.options.dirSelectable) {
+                            this.selectNodeHead();
+                        }
+                        else {
+                            if ($scope.selectedNode != selectedNode) {
+                                $scope.selectedNode = selectedNode;
+                            }
+                            else {
+                                $scope.selectedNode = undefined;
+                            }
+                            if ($scope.onDblClick)
+                                $scope.onDblClick({node: selectedNode});
+                        }
                     };
 
                     $scope.selectedIndex = function() {
@@ -290,7 +300,6 @@
                 link: function(scope, element, attrs, controller) {
 
                     scope.$parent.nodeIdMap[scope.node.id] = scope.$id;
-                    console.log(scope.$parent.nodeIdMap);
 
                     if (!scope.options.isLeaf(scope.node)) {
                         angular.forEach(scope.expandedNodesMap, function (node, id) {
@@ -326,13 +335,12 @@
                     });
 
                     var parentIndex = scope.$parent.visibleNodes.indexOf(scope.$parent.node);
-                    if(parentIndex !== -1) {
+                    if(parentIndex !== -1 && scope.transcludeScope.$parentNode.children) {
                         var myIndex = 1 + scope.transcludeScope.$parentNode.children.indexOf(scope.node);
                         scope.$parent.visibleNodes.splice(parentIndex+myIndex, 0, scope.node);
                     } else {
                         scope.$parent.visibleNodes.push(scope.node);
                     }
-                    console.log(scope.node.id, scope.$id)
                 }
             }
         });
