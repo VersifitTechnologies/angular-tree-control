@@ -34,6 +34,7 @@
                     indentGuides: "=?",
                     onSelection: "&",
                     onDblClick: "&",
+                    customFunctions: "=",
                     onNodeToggle: "&",
                     bindFunctionsTo: "=?",
                     options: "=?",
@@ -46,6 +47,12 @@
 
                     $scope.visibleNodes = [];
                     $scope.nodeIdMap = {};
+
+                    if($scope.customFunctions) {
+                        for(var i in $scope.customFunctions) {
+                            $scope[i] = $scope.customFunctions[i];
+                        }
+                    }
 
                     if($scope.bindFunctionsTo) {
                         $scope.bindFunctionsTo = {
