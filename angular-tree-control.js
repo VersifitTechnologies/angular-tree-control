@@ -55,34 +55,37 @@
                     }
 
                     if($scope.bindFunctionsTo) {
-                        $scope.bindFunctionsTo = {
-                            selectFirst: function() {
-                                if($scope.selectedIndex() === 0) return;
-                                $scope.selectNodeLabel($scope.visibleNodes[0]);
-                            },
-                            selectPrevious: function() {
-                                if($scope.selectedIndex() === 0) return;
-                                $scope.selectNodeLabel($scope.visibleNodes[$scope.selectedIndex()-1]);
-                            },
-                            selectNext: function() {
-                                if($scope.selectedIndex() === $scope.visibleNodes.length-1) return;
-                                $scope.selectNodeLabel($scope.visibleNodes[$scope.selectedIndex()+1]);
-                            },
-                            selectLast: function() {
-                                if($scope.selectedIndex() === $scope.visibleNodes.length-1) return;
-                                $scope.selectNodeLabel($scope.visibleNodes[$scope.visibleNodes.length-1]);
-                            },
-                            expandNode: function() {
-                                var nodeObj = {$id: $scope.nodeIdMap[$scope.selectedNode.id], node: $scope.selectedNode};
-                                if(!$scope.selectedNode || $scope.nodeExpanded.call(nodeObj)) return;
-                                $scope.selectNodeHead.call(nodeObj);
-                            },
-                            collapseNode: function() {
-                                var nodeObj = {$id: $scope.nodeIdMap[$scope.selectedNode.id], node: $scope.selectedNode};
-                                if(!$scope.selectedNode || !$scope.nodeExpanded.call(nodeObj)) return;
-                                $scope.selectNodeHead.call(nodeObj);
-                            }
+                        $scope.bindFunctionsTo.selectFirst = function() {
+                            if($scope.selectedIndex() === 0) return;
+                            $scope.selectNodeLabel($scope.visibleNodes[0]);
                         };
+
+                        $scope.bindFunctionsTo.selectPrevious = function() {
+                            if($scope.selectedIndex() === 0) return;
+                            $scope.selectNodeLabel($scope.visibleNodes[$scope.selectedIndex()-1]);
+                        };
+
+                        $scope.bindFunctionsTo.selectNext = function() {
+                            if($scope.selectedIndex() === $scope.visibleNodes.length-1) return;
+                            $scope.selectNodeLabel($scope.visibleNodes[$scope.selectedIndex()+1]);
+                        };
+
+                        $scope.bindFunctionsTo.selectLast = function() {
+                            if($scope.selectedIndex() === $scope.visibleNodes.length-1) return;
+                            $scope.selectNodeLabel($scope.visibleNodes[$scope.visibleNodes.length-1]);
+                        };
+
+                        $scope.bindFunctionsTo.expandNode = function() {
+                            var nodeObj = {$id: $scope.nodeIdMap[$scope.selectedNode.id], node: $scope.selectedNode};
+                            if(!$scope.selectedNode || $scope.nodeExpanded.call(nodeObj)) return;
+                            $scope.selectNodeHead.call(nodeObj);
+                        };
+
+                        $scope.bindFunctionsTo.collapseNode = function() {
+                            var nodeObj = {$id: $scope.nodeIdMap[$scope.selectedNode.id], node: $scope.selectedNode};
+                            if(!$scope.selectedNode || !$scope.nodeExpanded.call(nodeObj)) return;
+                            $scope.selectNodeHead.call(nodeObj);
+                        }
                     }
 
                     function defaultIsLeaf(node) {
